@@ -1,0 +1,38 @@
+.atnavI{
+    float: right;
+    font-size: 18px;
+    
+}
+.atnavIt{
+    float: left;
+    font-size: 18px;
+    margin-left: 82%;
+}
+.atlink{
+    color:black;
+    font-style: none;
+}
+.atlink:hover{
+    text-decoration: none;
+    color:black;
+    font-style: none;
+}
+.atnavI:hover{
+    
+    font-size: 20px;
+}
+.atnavIt:hover{
+    
+    font-size: 20px;
+}
+
+.atnav{
+    height: 60px !important;
+    margin-top: -15px;
+}
+.atcontainer{
+    min-height: 60px;
+}
+.atjumbotron{
+height: 60px;
+}

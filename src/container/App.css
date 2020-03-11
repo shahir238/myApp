@@ -1,0 +1,48 @@
+.navItem1{
+  margin-left: 15%;
+  font-size: 18px;
+  color: white;
+}
+.navItem1:hover{
+  margin-left: 15%;
+  font-size: 20px;
+  color: black;
+  text-decoration: none;
+}
+.nav{
+  height: 60px !important;
+  margin-top: -15px;
+}
+.container{
+  min-height: 60px;
+}
+.jumbotron{
+height: 60px;
+}
+
+.div{
+  margin-right: 10px;
+}
+div.jumbotron.jumbotron-fluid{
+  min-height: 60px;
+  background-color: #a8a7a8;
+}
+.navitem{
+  margin-left: 15%;
+}
+.div:hover{
+  background-color: skyblue;
+  border: skyblue;
+}
+.appcard{
+  height: 500px;
+  
+}
+.apptitle{
+  padding: 10px;
+  font-size: large;
+}
+.appP{
+  padding: 5px 10px 10px 10px;
+  text-align: justify;
+}

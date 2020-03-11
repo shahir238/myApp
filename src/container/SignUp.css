@@ -1,0 +1,57 @@
+.signupcard{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 765px;
+   
+}
+.signupform{
+ width: 700px;
+}
+.signuplabel{
+    color: #cf0c87;
+    font-size: 18px;
+}
+.signupinput{
+    background: none  ;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-color: red;
+    border-radius: 0px;
+    box-shadow:none;
+}
+.signupinput:focus{
+    background: none  ;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-color: red;
+    border-radius: 0px;
+    box-shadow:none;
+}
+.signupbtn{
+    background-color:#cf0c87 ;
+    border-color: #cf0c87;
+    float: right;
+}
+.signinbtn{
+    background-color:#cf0c87 ;
+    border-color: #cf0c87;
+    float: left;
+}
+.signuptitle{
+    font-size: 30px;
+    margin-bottom: 50px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: lightcoral;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+     
+    transition: background-color 1000s ease-in-out 0s;
+
+}

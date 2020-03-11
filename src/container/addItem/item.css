@@ -1,0 +1,19 @@
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.itembody{
+    width: 765px;
+    margin-left: 22%;
+    background-image: linear-gradient(to left, white , skyblue);
+}
+.itemmain{
+    background-image: linear-gradient(to left, white,skyblue , skyblue);
+    height: 765px;  
+}
+.itembutton{
+    margin-right: 50px;
+    background-color: green;
+    border: green;
+}

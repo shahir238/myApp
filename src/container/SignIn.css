@@ -1,0 +1,66 @@
+.mainCard{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 765px;
+    /* background-size: cover;
+    background-repeat: no-repeat; */
+}
+.myform{
+ width: 700px;
+}
+.mylabel{
+    color: #cf0c87;
+    font-size: 18px;
+}
+.myinput{
+    background: none  ;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-color: red;
+    border-radius: 0px;
+    box-shadow:none;
+    width: 250px;
+}
+.input:focus{
+    background: none  ;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-color: red;
+    border-radius: 0px;
+    box-shadow:none;
+}
+.mybtn{
+    background-color:#cf0c87 ;
+    border-color: #cf0c87;
+    float: right;
+}
+.mytitle{
+    font-size: 30px;
+    margin-bottom: 50px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: lightcoral;
+}
+/* input:-internal-autofill-selected {
+    background-color: red !important;
+}
+.div > input:-webkit-autofil{
+    background-color: transparent !important;
+} */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+     
+    transition: background-color 1000s ease-in-out 0s;
+
+}
+.logout{
+    float: left;
+}
+.login{
+    float: right;
+}
