@@ -5,6 +5,7 @@ import firebase from "../component/firebase";
 import { useFormik } from "formik";
 import { useState } from "react";
 import { Link } from 'react-router-dom';
+import App from './App';
 
 const validate = values => {
   const errors = {};
@@ -65,7 +66,7 @@ const SignUp=()=> {
     address:"",
     state:"",
     city:""
- })
+ });
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -78,13 +79,15 @@ const SignUp=()=> {
       city:""
     },
     validate,
-    onSubmit: values => {
-      
-      alert("hi you are succesfully submitted",JSON.stringify(values, null, 2));
+    onSubmit:values  => {
+      console.log({values})
+     
+      // alert(JSON.stringify(values, null, 2));
     }
   });
 console.log("values of formik",formik.initialValues)
   const signup = () => {
+        
     firebase
       .auth()
       .createUserWithEmailAndPassword(
@@ -99,6 +102,7 @@ console.log("values of formik",formik.initialValues)
         console.log("Error message",errorMessage)
         // ...
       });
+  
       const ID=(Math.random()+1);
       setError({
         id:ID,
@@ -113,6 +117,10 @@ console.log("values of formik",formik.initialValues)
       })
      
   };
+  
+    
+    
+
     return (
         <Card className="signupcard">
            <CardTitle className="title">Sign Up...</CardTitle>
@@ -198,8 +206,10 @@ console.log("values of formik",formik.initialValues)
         </Col>
        
       </Row>
-      
-      <Button onClick={signup} type="submit" className="signupbtn">Sign Up</Button>
+      {(!error.email&&!error.password) ?
+      [<Link to="/"> <Button onClick={signup} type="submit" className="signupbtn">Sign Up</Button></Link>]:[
+        <Button onClick={signup} type="submit" className="signupbtn">Sign Up</Button>
+      ]}
       <Link to="/SignIn" > <Button  type="button" className="signinbtn">Sign In</Button></Link>
     </Form> 
  
