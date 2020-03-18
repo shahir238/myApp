@@ -8,7 +8,6 @@ import {
   Col
 } from "reactstrap";
 import { db } from "../../component/firebase";
-import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFacebookF,
@@ -16,6 +15,7 @@ import {
   faLinkedinIn,
   faYoutube
 } from "@fortawesome/free-brands-svg-icons";
+
 export default class Detail extends Component {
   state = {
     Item: [],
@@ -24,6 +24,9 @@ export default class Detail extends Component {
   };
 
   componentDidMount() {
+    console.log(this.state.Item);
+    console.log(this.state.images);
+    console.log(this.state.linkItem);
     db.collection("items")
       .get()
       .then(snapshot => {
@@ -41,13 +44,13 @@ export default class Detail extends Component {
         );
         let tempImages = [];
         linkItem &&
-          linkItem[0].url.map((e, i) => {
+          linkItem[0].url.map((e, i) =>
             tempImages.push({
               src: e,
               altText: "Slide" + i,
               caption: "Slide" + i
-            });
-          });
+            })
+          );
         this.setState({ linkItem, images: tempImages });
         console.log("link item", this.state.linkItem);
         console.log("ITem props", this.props.match.params.id);
@@ -55,38 +58,28 @@ export default class Detail extends Component {
       .catch(error => console.log(error));
   }
 
-  // items = [
-  //   {
-  //     src:  this.state.linkItem.url,
-  //     altText: "Slide 1",
-  //     caption: "Slide 1",
-  //     header: "Slide 1 Header",
-  //     key: "1"
-  //   },
-
-  // ];
-  // const items = this.state.linkItem.map(e)
-
-  handle = () => {
-    console.log("ITem", this.state.Item);
+  homeRoute = () => {
+    console.log("Home props", this.props);
+    this.props.history.push("/");
   };
   render() {
     console.log(this.props);
     return (
       <div>
-        {this.state.linkItem.map(e => (
+        {this.state.linkItem.map((e, i) => (
           <>
             <Jumbotron
               style={{
                 display: "flex",
                 justifyContent: "center",
-                alignItems: "center"
+                alignItems: "center",
+                backgroundColor: "#1387bd"
               }}
             >
               <span>
-                <Link to={"/"}>
-                  <Button color="success">Home</Button>
-                </Link>
+                <Button onClick={this.homeRoute} color="success">
+                  Home
+                </Button>
               </span>
               <h1
                 style={{
@@ -98,13 +91,16 @@ export default class Detail extends Component {
                 {e.title}
               </h1>
             </Jumbotron>
-            <p>
+            <div key={i}>
               <UncontrolledCarousel items={this.state.images} />
-              <p style={{textAlign:'justify',margin:'2px 10px 0px 10px'}}>
-                <h4>Rate: ${e.price}</h4>
-                <h4>Contact: {e.contact}</h4>
-                {e.description}
-                <p style={{textAlign:'justify'}}>
+              <p style={{ textAlign: "justify", margin: "2px 10px 0px 10px" }}>
+                <h4>
+                  Rate: ${e.price}
+                  <br></br>
+                  Contact: {e.contact}
+                </h4>
+                <p style={{ lineHeight: "50px" }}>
+                  {e.description}
                   "But I must explain to you how all this mistaken idea of
                   denouncing pleasure and praising pain was born and I will give
                   you a complete account of the system, and expound the actual
@@ -124,48 +120,49 @@ export default class Detail extends Component {
                   no resultant pleasure?"
                 </p>
               </p>
-            </p>
+            </div>
+
+            <CardFooter style={{ backgroundColor: "#9aa3a6", height: "150px" }}>
+              <Row>
+                <Col sm={4} md={6} lg={12}>
+                  <FontAwesomeIcon
+                    style={{ marginLeft: "20%" }}
+                    className="fa-2x"
+                    icon={faFacebookF}
+                  />
+                  <FontAwesomeIcon
+                    className="fa-2x"
+                    style={{ marginLeft: "15%" }}
+                    icon={faTwitter}
+                  />
+                  <FontAwesomeIcon
+                    className="fa-2x"
+                    style={{ marginLeft: "15%" }}
+                    icon={faLinkedinIn}
+                  />
+                  <FontAwesomeIcon
+                    className="fa-2x"
+                    style={{ marginLeft: "15%" }}
+                    icon={faYoutube}
+                  />{" "}
+                </Col>
+              </Row>
+              <Row>
+                <Col style={{ paddingLeft: "400px" }} sm={1} md={6} lg={6}>
+                  Site by DigitalLeap Creative.
+                </Col>
+                <Col sm={1} md={6} lg={6}>
+                  All Rights Reserved{" "}
+                </Col>
+              </Row>
+              <Row>
+                <Col style={{ paddingLeft: "43%" }} sm={1} md={12} lg={12}>
+                  @Shaheer & Group
+                </Col>
+              </Row>
+            </CardFooter>
           </>
         ))}
-        <CardFooter style={{ backgroundColor: "#9aa3a6", height: "150px" }}>
-          <Row>
-            <Col sm={4} md={6} lg={12}>
-              <FontAwesomeIcon
-                style={{ marginLeft: "20%" }}
-                className="fa-2x"
-                icon={faFacebookF}
-              />
-              <FontAwesomeIcon
-                className="fa-2x"
-                style={{ marginLeft: "15%" }}
-                icon={faTwitter}
-              />
-              <FontAwesomeIcon
-                className="fa-2x"
-                style={{ marginLeft: "15%" }}
-                icon={faLinkedinIn}
-              />
-              <FontAwesomeIcon
-                className="fa-2x"
-                style={{ marginLeft: "15%" }}
-                icon={faYoutube}
-              />{" "}
-            </Col>
-          </Row>
-          <Row>
-            <Col style={{ paddingLeft: "400px" }} sm={1} md={6} lg={6}>
-              Site by DigitalLeap Creative.
-            </Col>
-            <Col sm={1} md={6} lg={6}>
-              All Rights Reserved{" "}
-            </Col>
-          </Row>
-          <Row>
-            <Col style={{ paddingLeft: "43%" }} sm={1} md={12} lg={12}>
-              @Shaheer & Group
-            </Col>
-          </Row>
-        </CardFooter>
       </div>
     );
   }

@@ -1,16 +1,25 @@
 .atnavI{
     float: right;
     font-size: 18px;
-    
+    width:200px;
 }
 .atnavIt{
     float: left;
     font-size: 18px;
     margin-left: 82%;
+    width:200px;
+    margin-top: -60px;
+}
+
+.atlinked{
+    color:white;
+    font-style: none;
+    float: left;
 }
 .atlink{
-    color:black;
+    color:white;
     font-style: none;
+    float: right;
 }
 .atlink:hover{
     text-decoration: none;

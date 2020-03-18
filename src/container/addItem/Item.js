@@ -1,161 +1,234 @@
-import React,{useState} from 'react';
-import { Button, Label,Input,FormGroup,Form, CardBody,Row,Col,Progress} from 'reactstrap';
-import { db } from '../../component/firebase';
-import App from '../App';
+import React, { useState } from "react";
+import {
+  Button,
+  Label,
+  Input,
+  FormGroup,
+  Form,
+  CardBody,
+  Row,
+  Col,
+  Progress
+} from "reactstrap";
+import { db, storage } from "../../component/firebase";
+import { withRouter } from "react-router-dom";
 
-import './item.css';
-import ImageUploader from '../fileUpload/ImageUploader';
+import "./item.css";
+import ImageUploader from "../fileUpload/ImageUploader";
 
-const Item= () => {
-const [item, setItem] = useState({
-    id: Math.floor(Math.random() * 100 / 10),
+const Item = props => {
+  console.log({ jjj: props });
+  const [item, setItem] = useState({
+    id: Math.random() * 100 + 1,
     title: "",
     description: "",
-    link: "",
+    price: "",
+    contact: "",
     url: []
   });
-  const [cancel,setCancel]=useState(false);
-  //  const [progress,setProgress] = useState(0);
-  
-  const images = url => {
-     setItem({
-      id:item.id,
-      title: item.title,
-      description: item.description,
-      link: item.link,
-      url:item.url})
-    for(var i=0; i<10; i++){
- 
-console.log("length",url.length)
-   
-       setItem({
-        id:item.id,
-        title: item.title,
-        description: item.description,
-        link: item.link,
-        url:[...item.url,url]
+  const [myImages, setMyImages] = useState([]);
+  const img = image => {
+    console.log({ image });
+    for (var i = 0; i < image.length; i++) {
+      setMyImages({
+        myImages: image
       });
+      console.log("Arsalan Images", myImages);
     }
-  
-  
-  console.log("images URL",item.url);
   };
+  const [progress, setProgress] = useState(0);
 
-  const submit = e => {
+  const submit = async e => {
     e.preventDefault();
-    db.collection("items").add(item);
-    
-    
+    let Url = [];
+    let pro = 0;
+    for (var i = 0; i < myImages.myImages.length; i++) {
+      await storage
+        .ref(`images/${myImages.myImages[i].name}`)
+        .put(myImages.myImages[i])
+        .then(async snapshot => {
+          await snapshot.ref.getDownloadURL().then(url => {
+            // console.log('File available at', downloadURL);
+            Url.push(url);
+          });
+          console.log(
+            "bytes.......",
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+          pro = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+          setProgress(pro);
+        });
+    }
+
+    console.log({
+      abc: {
+        id: item.id,
+        description: item.description,
+        title: item.title,
+        price: item.price,
+        contact: item.contact,
+        url: Url
+      }
+    });
+
+    const chk = {
+      id: item.id,
+      description: item.description,
+      title: item.title,
+      price: item.price,
+      contact: item.contact,
+      url: Url
+    };
+    await db.collection("items").add(chk);
+
     setItem({
-      id: Math.floor(Math.random() * 100 / 10),
+      id: "",
       title: "",
       description: "",
-      link: "",
+      price: "",
+      contact: "",
       url: []
     });
-    setCancel(true);
-    console.log("Items", item);
-    
-  }
-  // const handleClick=()=>{
-  //   setCancel(true);
-  //   console.log({cancel})
-  // }
 
- 
+    console.log("Items", item);
+
+    pro === 100 && props.history.push("/");
+  };
 
   return (
-    (cancel===false)?
-        [
-        <div className="itemmain">
-         
-        <h1 className="header" >
-         Add New Item 
-        </h1>
-        <br></br>
-        <CardBody className="itembody">
-          <Form onSubmit={submit}>
-            <Row>
-              <Col md={6} sm={4} lg={12}>
-            <FormGroup>
-              <Label className="itemlabel" for="title">Title</Label>
-              <Input
-              className="iteminput"
-                type="text"
-                value={item.title}
-                onChange={e =>
-                  setItem({
-                    id:item.id,
-                    title: e.target.value,
-                    description: item.description,
-                    link: item.link,
-                    url: item.url
-                  })
-                }
-                name="title"
-                id="title"
-              />
-            </FormGroup>
+    <div className="itemmain">
+      <h1 style={{ color: "#8c0ad1" }} className="header">
+        Add New Item
+      </h1>
+      <br></br>
+      <CardBody className="itembody">
+        <Form onSubmit={submit}>
+          <Row>
+            <Col md={6} sm={4} lg={12}>
+              <FormGroup>
+                <Label className="itemlabel" for="title">
+                  Title
+                </Label>
+                <Input
+                  required
+                  className="iteminput"
+                  type="text"
+                  value={item.title}
+                  onChange={e =>
+                    setItem({
+                      id: item.id,
+                      title: e.target.value,
+                      description: item.description,
+                      price: item.price,
+                      contact: item.contact,
+                      url: item.url
+                    })
+                  }
+                  name="title"
+                  id="title"
+                />
+              </FormGroup>
             </Col>
             <Col md={6} sm={4} lg={12}>
-            <FormGroup>
-              <Label className="itemlabel" for="description">Description</Label>
-              <Input
-              className="iteminput"
-                type="textarea"
-                value={item.description}
-                onChange={e =>
-                  setItem({
-                    id:item.id,
-                    title: item.title,
-                    description: e.target.value,
-                    link: item.link,
-                    url: item.url
-                  })
-                }
-                name="description"
-                id="description"
-              />
-            </FormGroup>
+              <FormGroup>
+                <Label className="itemlabel" for="description">
+                  Description
+                </Label>
+                <Input
+                  required
+                  className="iteminput"
+                  type="textarea"
+                  value={item.description}
+                  onChange={e =>
+                    setItem({
+                      id: item.id,
+                      title: item.title,
+                      description: e.target.value,
+                      price: item.price,
+                      contact: item.contact,
+                      url: item.url
+                    })
+                  }
+                  name="description"
+                  id="description"
+                />
+              </FormGroup>
             </Col>
-            <Col md={6} sm={4} lg={12}>
-            <FormGroup>
-              <Label className="itemlabel" for="link">Link</Label>
-              <Input className="iteminput"
-                type="text"
-                value={item.link}
-                onChange={e =>
-                  setItem({
-                    id:item.id,
-                    title: item.title,
-                    description: item.description,
-                    link: e.target.value,
-                    url: item.url
-                  })
-                }
-                name="link"
-                id="link"
-              />
-              
-            </FormGroup>
-            </Col>
-            
-            </Row>
-            
-            {/* Image upload component */}
-            <ImageUploader image={images} />
-            
-            <Row>
-              <Col>
-              <Button  className="itembutton">Create</Button>
-              </Col>
-            </Row>
-            
-          </Form>
-        </CardBody>
-      
-        </div>]:[<App />]
-    )
-}
 
-export default Item;
+            <Col md={6} sm={4} lg={12}>
+              <FormGroup>
+                <Label className="itemlabel" for="price">
+                  Price
+                </Label>
+                <Input
+                  required
+                  className="iteminput"
+                  type="number"
+                  value={item.price}
+                  onChange={e =>
+                    setItem({
+                      id: item.id,
+                      title: item.title,
+                      description: item.description,
+                      price: e.target.value,
+                      contact: item.contact,
+                      url: item.url
+                    })
+                  }
+                  name="price"
+                  id="price"
+                />
+              </FormGroup>
+            </Col>
+
+            <Col md={6} sm={4} lg={12}>
+              <FormGroup>
+                <Label className="itemlabel" for="contact">
+                  contact
+                </Label>
+                <Input
+                  required
+                  className="iteminput"
+                  type="number"
+                  value={item.contact}
+                  onChange={e =>
+                    setItem({
+                      id: item.id,
+                      title: item.title,
+                      description: item.description,
+                      price: item.price,
+                      contact: e.target.value,
+                      url: item.url
+                    })
+                  }
+                  name="contact"
+                  id="contact"
+                />
+              </FormGroup>
+            </Col>
+          </Row>
+
+          {/* Image upload component */}
+          <ImageUploader myImg={img} />
+          <Col>
+            <Progress value={progress} max="100" className="myprogress" />
+          </Col>
+          <Row>
+            {/* <Col><Progress
+            value={progress}
+            max="200"
+            className="myprogress"
+          /></Col> */}
+            <Col>
+              <Button className="itembutton">Create</Button>
+            </Col>
+          </Row>
+        </Form>
+      </CardBody>
+    </div>
+  );
+};
+
+export default withRouter(Item);

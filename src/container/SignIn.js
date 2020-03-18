@@ -29,7 +29,7 @@ const validate = values => {
 
 const SignIn = () => {
   // const [isSignedIn,setIsSignedIn]= useState({user:false});
-  const [uiConfig,setUiConfig] = useState({ signInFlow: "popup",
+  const [uiConfig] = useState({ signInFlow: "popup",
   signInOptions: [
     firebase.auth.GoogleAuthProvider.PROVIDER_ID
   ],

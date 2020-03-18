@@ -1,6 +1,6 @@
 
-import { Jumbotron, Container, Nav, Row, Col, Card, CardBody, CardImg, CardTitle, CardText,CardSubtitle, Button, NavItem } from "reactstrap";
-import { Link} from "react-router-dom";
+import { Jumbotron, Container, Nav, Row, Col, Card, CardImg, CardTitle, CardText, Button, NavItem } from "reactstrap";
+import { Link,NavLink} from "react-router-dom";
 import "./App.css";
 import firebase from "../component/firebase";
 import {db} from '../component/firebase';
@@ -13,19 +13,19 @@ export class App extends Component {
   }
    
    logOut = () => {
-    // this.setState({isSignedIn:this.props.signout});
-    firebase.auth().signOut();
-    console.log("sign in")
+
+    if(firebase.auth().signOut()){
+    this.props.history.push("/SignIn");
+    console.log("props of log out",this.props)
+    }
   }
   componentDidMount() {
-    // let { id } = useParams();
-    //         this.fetchData(id);
-    //         console.log("params id",id);
+    
     db.collection("items")
       .get()
       .then(snapshot => {
         console.log("snapshot", snapshot);
-        let item = [];
+        let item = []; 
         snapshot.forEach(doc => {
           const data = doc.data();
           item.push(data);
@@ -34,46 +34,46 @@ export class App extends Component {
         this.setState({
           item
         });
-        console.log("Movie data", this.state.movies);
+        // console.log("checking iiiiiiiiiii",this.state.item);
+        
       })
       .catch(error => console.log(error));
       
+      
   }
-linkItem=(id)=>{
-  
-  const link = this.state.item.filter(items => items.id === id);
-   console.log("link item ",link)
- 
-}
 
   render() {
     return (
       <div className="App">
-      <Jumbotron className="jumbotron" fluid>
+      <Jumbotron style={{backgroundColor:'#1387bd'}} className="jumbotron" fluid>
       
         <Container className="container" fluid>
           
           <Nav className="nav">
-            <Link className="navItem1" to="/">Home</Link> 
-            <Link className="navItem1" to="/Item">Add item</Link>
-            <Link className="navItem1" to="/Register">Register</Link>
-            <NavItem className="navitem"><Button className="div" onClick={this.logOut} >Sign Out</Button></NavItem>
+            <NavLink exact className="navItem1" to="/">Home</NavLink> 
+            <NavLink exact className="navItem1" to="/Item">Add item</NavLink>
+            <NavLink exact className="navItem1" to="/Register">Register</NavLink>
+            <NavItem className="navitem"><Button color='success' className="div" onClick={this.logOut} >Sign Out</Button></NavItem>
           </Nav>
         </Container>
       </Jumbotron>
       <Container>
         
       <Row>
-        {this.state.item && this.state.item.map(e=>
-
+        {this.state.item && this.state.item.map((e,i)=>
         
-      <Col xs="12" sm="6" lg="4"  md="6">
+      <Col key={i} xs="12" sm="6" lg="4"  md="6" className="appCol">
         
       <Card className="appcard" key={e.id}>
-      <Link  onClick={() => this.linkItem(e.id)} to={e.title}>
+      <Link  to={`/${e.id}`}>
       <CardImg className="appimg" width="318" alt={e.title} height="180" src={e.url} />
       </Link>
-        <CardTitle className="apptitle">{e.title}</CardTitle>
+        <CardTitle className="apptitle">{e.title}<br></br>
+        <h6>Price: ${e.price}</h6>
+        <h6>Contact: {e.contact}</h6>
+        </CardTitle>
+        {/* <CardTitle className="apptitle">${e.price}</CardTitle>
+        <CardTitle className="apptitle">{e.contact}</CardTitle> */}
         
         <CardText className="appP">{e.description}</CardText>
         

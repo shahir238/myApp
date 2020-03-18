@@ -1,19 +1,19 @@
-.header{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.itembody{
-    width: 765px;
-    margin-left: 22%;
-    background-image: linear-gradient(to left, white , skyblue);
+.itembody {
+  width: 765px;
+  margin-left: 22%;
+  background-image: linear-gradient(to left, white, #e1f3f5, #e1f3f5, white);
 }
-.itemmain{
-    background-image: linear-gradient(to left, white,skyblue , skyblue);
-    height: 765px;  
+.itemmain {
+  background-image: linear-gradient(to left, white, #e1f3f5, white);
+  height: auto;
 }
-.itembutton{
-    margin-right: 50px;
-    background-color: green;
-    border: green;
+.itembutton {
+  margin-right: 50px;
+  background-color: green;
+  border: green;
 }

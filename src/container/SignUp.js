@@ -4,8 +4,7 @@ import './SignUp.css';
 import firebase from "../component/firebase";
 import { useFormik } from "formik";
 import { useState } from "react";
-import { Link } from 'react-router-dom';
-import App from './App';
+import { Link,withRouter } from 'react-router-dom';
 
 const validate = values => {
   const errors = {};
@@ -55,7 +54,8 @@ const validate = values => {
   return errors;
 };
 
-const SignUp=()=> {
+const SignUp=(props)=> {
+  console.log("getting props",props)
   const[error,setError]=useState({
     id:'',
     firstName:'',
@@ -67,6 +67,7 @@ const SignUp=()=> {
     state:"",
     city:""
  });
+ const [detect,setDetect] = useState(false)
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -103,7 +104,7 @@ console.log("values of formik",formik.initialValues)
         // ...
       });
   
-      const ID=(Math.random()+1);
+      const ID=((Math.random()*100)+1);
       setError({
         id:ID,
         name:formik.errors.name,
@@ -115,12 +116,13 @@ console.log("values of formik",formik.initialValues)
         state: formik.errors.state,
         city: formik.errors.city
       })
+      setDetect(true);
+      if(!formik.errors.email && !formik.errors.passward && !error&& detect===true){
+        props.history.push("/")
+      }
      
   };
   
-    
-    
-
     return (
         <Card className="signupcard">
            <CardTitle className="title">Sign Up...</CardTitle>
@@ -206,10 +208,8 @@ console.log("values of formik",formik.initialValues)
         </Col>
        
       </Row>
-      {(!error.email&&!error.password) ?
-      [<Link to="/"> <Button onClick={signup} type="submit" className="signupbtn">Sign Up</Button></Link>]:[
-        <Button onClick={signup} type="submit" className="signupbtn">Sign Up</Button>
-      ]}
+       <Button onClick={signup} type="submit" className="signupbtn">Sign Up</Button>
+        
       <Link to="/SignIn" > <Button  type="button" className="signinbtn">Sign In</Button></Link>
     </Form> 
  
@@ -217,4 +217,4 @@ console.log("values of formik",formik.initialValues)
     )
 }
 
-export default SignUp;
+export default withRouter(SignUp);
