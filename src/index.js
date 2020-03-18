@@ -5,9 +5,9 @@ import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
 //import { ImageUploader } from './container/fileUpload/ImageUploader';
 //import Item from './container/addItem/Item';
-import Pages from './component/Pages';
+import Authentication from './component/Authentication';
 
 
-ReactDOM.render(<Pages />, document.getElementById('root'));
+ReactDOM.render(<Authentication />, document.getElementById('root'));
 
 
