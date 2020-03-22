@@ -5,7 +5,9 @@ export class ImageUploader extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      image: []
+      image: [],
+      theInputKey: ""
+
       // urls: [],
       // progress: 0,
       // load: false
@@ -16,30 +18,43 @@ export class ImageUploader extends Component {
 
   componentDidUpdate() {
     console.log("Images", this.state.image);
+
     // console.log("shaheer Url",this.state.urls);
   }
 
   handleChange = e => {
     const { image } = this.state;
 
-    const images = e.target.files;
+    let images = e.target.files;
     this.setState({ image: [...image, ...images] });
+    this.props.myImg(images);
     console.log({ images });
     console.log(this.state.image);
-    this.props.myImg(images);
   };
 
   imageDelete = i => {
     let image = this.state.image;
     image.splice(i, 1);
     this.setState({ image });
+    this.props.myImg(image);
+    if (image.length === 0) {
+      this.setState({
+        theInputKey: 2
+      });
+    }
   };
 
   render() {
     return (
       <FormGroup>
         <Label>Upload Image</Label>
-        <Input type="file" multiple onChange={this.handleChange} />
+        <Input
+          required
+          key={this.state.theInputKey || ""}
+          type="file"
+          multiple
+          onChange={this.handleChange}
+        />
 
         <Row>
           {this.state.image.length !== 0
@@ -64,7 +79,13 @@ export class ImageUploader extends Component {
                   </Col>
                 ))
               ]
-            : [<img key={this.props} alt="demo" src="http://placehold.it/150x150" />]}
+            : [
+                <img
+                  key={this.props}
+                  alt="demo"
+                  src="http://placehold.it/150x150"
+                />
+              ]}
         </Row>
       </FormGroup>
     );

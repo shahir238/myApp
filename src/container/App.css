@@ -1,10 +1,9 @@
 .navItem1{
-  margin-left: 15%;
+ 
   font-size: 18px;
   color: white;
 }
 .navItem1:hover{
-  margin-left: 15%;
   font-size: 20px;
   color: black;
   text-decoration: none;
@@ -28,7 +27,11 @@ div.jumbotron.jumbotron-fluid{
   background-color: #a8a7a8;
 }
 .navitem{
-  margin-left: 15%;
+  float: right;
+  margin-left: 88%;
+  margin-Top: -45px;
+  min-height: auto !important;
+  min-width: 100px;
 }
 .div:hover{
   background-color: skyblue;

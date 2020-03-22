@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { AuthContext } from "../../component/Auth";
 import {
   Button,
   Label,
@@ -17,6 +18,7 @@ import "./item.css";
 import ImageUploader from "../fileUpload/ImageUploader";
 
 const Item = props => {
+  const { currentUser } = useContext(AuthContext);
   console.log({ jjj: props });
   const [item, setItem] = useState({
     id: Math.random() * 100 + 1,
@@ -69,7 +71,8 @@ const Item = props => {
         title: item.title,
         price: item.price,
         contact: item.contact,
-        url: Url
+        url: Url,
+        uid: currentUser.uid
       }
     });
 
@@ -79,7 +82,8 @@ const Item = props => {
       title: item.title,
       price: item.price,
       contact: item.contact,
-      url: Url
+      url: Url,
+      uid: currentUser.uid
     };
     await db.collection("items").add(chk);
 

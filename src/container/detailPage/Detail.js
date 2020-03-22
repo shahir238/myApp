@@ -55,7 +55,7 @@ export default class Detail extends Component {
         console.log("link item", this.state.linkItem);
         console.log("ITem props", this.props.match.params.id);
       })
-      .catch(error => console.log(error));
+      .catch(error => console.log({ error }));
   }
 
   homeRoute = () => {
@@ -157,7 +157,7 @@ export default class Detail extends Component {
               </Row>
               <Row>
                 <Col style={{ paddingLeft: "43%" }} sm={1} md={12} lg={12}>
-                  @Shaheer & Group
+                  @Shaheer and Group
                 </Col>
               </Row>
             </CardFooter>

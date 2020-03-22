@@ -1,25 +1,42 @@
 
 import { Jumbotron, Container, Nav, Row, Col, Card, CardImg, CardTitle, CardText, Button, NavItem } from "reactstrap";
-import { Link,NavLink} from "react-router-dom";
+import { Link,NavLink, Redirect, Route} from "react-router-dom";
 import "./App.css";
-import firebase from "../component/firebase";
-import {db} from '../component/firebase';
+import firebase,{db} from "../component/firebase";
+// import {db} from '../component/firebase';
 import React, { Component } from 'react'
 
 
 export class App extends Component {
   state ={
-    item:[]
+    item:[],
+    uid:""
   }
    
    logOut = () => {
-
+   
     if(firebase.auth().signOut()){
-    this.props.history.push("/SignIn");
+        // return <Redirect to={"/"} />
+      this.props.history.push("/")
     console.log("props of log out",this.props)
     }
   }
+  authListener() {
+        firebase.auth().onAuthStateChanged(user => {
+          console.log({ user });
+          if(user){
+           
+            this.setState({
+              uid:user.uid
+            })
+            console.log(this.state.uid)
+          }
+          
+         
+        })
+  }
   componentDidMount() {
+    this.authListener()
     
     db.collection("items")
       .get()
@@ -29,15 +46,15 @@ export class App extends Component {
         snapshot.forEach(doc => {
           const data = doc.data();
           item.push(data);
+          let userItem= item.filter(e=> e.uid==this.state.uid);
+          this.setState({
+            item:userItem
+          });
         });
 
-        this.setState({
-          item
-        });
-        // console.log("checking iiiiiiiiiii",this.state.item);
-        
       })
       .catch(error => console.log(error));
+      
       
       
   }
@@ -51,8 +68,8 @@ export class App extends Component {
           
           <Nav className="nav">
             <NavLink exact className="navItem1" to="/">Home</NavLink> 
-            <NavLink exact className="navItem1" to="/Item">Add item</NavLink>
-            <NavLink exact className="navItem1" to="/Register">Register</NavLink>
+            <NavLink style={{marginLeft:'30px'}} exact className="navItem1" to="/Item">Add item</NavLink>
+            
             <NavItem className="navitem"><Button color='success' className="div" onClick={this.logOut} >Sign Out</Button></NavItem>
           </Nav>
         </Container>
@@ -60,7 +77,8 @@ export class App extends Component {
       <Container>
         
       <Row>
-        {this.state.item && this.state.item.map((e,i)=>
+        {
+        this.state.item && this.state.item.map((e,i)=>
         
       <Col key={i} xs="12" sm="6" lg="4"  md="6" className="appCol">
         
@@ -72,9 +90,6 @@ export class App extends Component {
         <h6>Price: ${e.price}</h6>
         <h6>Contact: {e.contact}</h6>
         </CardTitle>
-        {/* <CardTitle className="apptitle">${e.price}</CardTitle>
-        <CardTitle className="apptitle">{e.contact}</CardTitle> */}
-        
         <CardText className="appP">{e.description}</CardText>
         
     </Card>
