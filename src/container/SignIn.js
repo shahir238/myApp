@@ -83,7 +83,7 @@ const SignIn = () => {
   };
 
   const { currentUser } = useContext(AuthContext);
-  if (currentUser) {
+  if (currentUser===true) {
     return <Redirect to="/" />;
   }
 

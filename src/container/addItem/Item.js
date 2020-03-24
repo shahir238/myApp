@@ -1,5 +1,6 @@
-import React, { useState, useContext } from "react";
-import { AuthContext } from "../../component/Auth";
+import React, { useState,useEffect } from "react";
+// import { AuthContext } from "../../component/Auth";
+import firebase from "../../component/firebase"
 import {
   Button,
   Label,
@@ -18,7 +19,11 @@ import "./item.css";
 import ImageUploader from "../fileUpload/ImageUploader";
 
 const Item = props => {
-  const { currentUser } = useContext(AuthContext);
+  const [currentUser,setCurrentUser] = useState(null)
+  // const { currentUser } = useContext(AuthContext);
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(setCurrentUser)
+  }, [props])
   console.log({ jjj: props });
   const [item, setItem] = useState({
     id: Math.random() * 100 + 1,

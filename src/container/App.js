@@ -5,22 +5,28 @@ import "./App.css";
 import firebase,{db} from "../component/firebase";
 // import {db} from '../component/firebase';
 import React, { Component } from 'react'
+import SignIn from "./SignIn";
 
 
 export class App extends Component {
   state ={
     item:[],
-    uid:""
+    uid:"",
+    user:true
   }
    
-   logOut = () => {
-   
-    if(firebase.auth().signOut()){
-        // return <Redirect to={"/"} />
-      this.props.history.push("/")
+   logOut = async() => {
+   await firebase.auth().signOut();
+   await this.setState({user:false});
+    console.log(this.state.user);
+    if(this.state.user===false){
+      return <SignIn />
+      }
+     
     console.log("props of log out",this.props)
-    }
+
   }
+ 
   authListener() {
         firebase.auth().onAuthStateChanged(user => {
           console.log({ user });
@@ -28,7 +34,7 @@ export class App extends Component {
            
             this.setState({
               uid:user.uid
-            })
+             })
             console.log(this.state.uid)
           }
           
@@ -56,11 +62,13 @@ export class App extends Component {
       .catch(error => console.log(error));
       
       
-      
   }
+  
 
   render() {
+  
     return (
+     
       <div className="App">
       <Jumbotron style={{backgroundColor:'#1387bd'}} className="jumbotron" fluid>
       
@@ -101,6 +109,7 @@ export class App extends Component {
       
 
     </div>
+        
     )
   }
 }
