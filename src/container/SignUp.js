@@ -133,7 +133,7 @@ const SignUp = ({ history }) => {
   };
   const { currentUser } = useContext(AuthContext);
 
-  if (currentUser===true) {
+  if (currentUser) {
     return <Redirect to="/" />;
   }
 

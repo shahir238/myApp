@@ -5,7 +5,7 @@ import { AuthContext } from "./Auth";
 // import SignIn from "../container/SignIn";
 import firebase from "../component/firebase";
 
-const PrivateRoute = ({ component: RouteComponent, ...rest }) => {
+const ProtectedRoute = ({ component: RouteComponent, ...rest }) => {
   const { currentUser,user} = useContext(AuthContext);
   useEffect(() => {
    
@@ -18,11 +18,11 @@ const PrivateRoute = ({ component: RouteComponent, ...rest }) => {
     <Route
       {...rest}
       render={Props =>
-        user===true ? (
+        user===false ? (
           <RouteComponent {...Props} />
         ) : (
          
-          <Redirect to="/SignIn" />
+          <Redirect to="/" />
           
         )
       }
@@ -31,4 +31,4 @@ const PrivateRoute = ({ component: RouteComponent, ...rest }) => {
   );
 };
 
-export default PrivateRoute;
+export default ProtectedRoute;

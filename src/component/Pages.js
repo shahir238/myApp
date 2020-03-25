@@ -12,6 +12,7 @@ import Item from "../container/addItem/Item";
 import Detail from "../container/detailPage/Detail";
 import PrivateRoute from "./PrivateRoute";
 import { AuthProvider } from "./Auth";
+import ProtectedRoute from "./ProtectedRoute";
 
 const Pages = () => {
   return (
@@ -19,8 +20,8 @@ const Pages = () => {
       <Router>
         <PrivateRoute exact path="/" component={App} />
         <PrivateRoute exact path="/Item" component={Item} />
-        <Route exact path="/SignUp" component={SignUp} />
-        <Route exact path="/SignIn" component={SignIn} />
+        <ProtectedRoute exact path="/SignUp" component={SignUp} />
+        <ProtectedRoute exact path="/SignIn" component={SignIn} />
         <PrivateRoute exact path="/:id" component={Detail} />
       </Router>
     </AuthProvider>
