@@ -65,7 +65,8 @@ export class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      this.state.user===true ?
+      (<div className="App">
       <Jumbotron style={{backgroundColor:'#1387bd'}} className="jumbotron" fluid>
       
         <Container className="container" fluid>
@@ -104,7 +105,7 @@ export class App extends Component {
       </Container>
       
 
-    </div>
+    </div>):(null)
     )
   }
 }
