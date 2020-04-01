@@ -69,7 +69,7 @@ export class ImageUploader extends Component {
                         Delete
                       </Button>
                       <img
-                        onClick={() => this.imageDelete(i)}
+                        // onClick={() => this.imageDelete(i)}
                         alt="myImages"
                         width="150"
                         height="150"

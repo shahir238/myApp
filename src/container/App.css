@@ -48,6 +48,7 @@ div.jumbotron.jumbotron-fluid{
 .appP{
   padding: 0px 10px 10px 10px;
   text-align: justify;
+  overflow: hidden;
 }
 .appCol{
   margin-bottom: 5px;
