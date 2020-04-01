@@ -101,7 +101,7 @@ export class App extends Component {
         <h6>Price: ${e.price}</h6>
         <h6>Contact: {e.contact}</h6>
         </CardTitle>
-        <CardText className="appP" maxLength={20} >{e.description.length>20?(e.description.substr(0,200)):(e.description)}</CardText>
+        <CardText className="appP" >{e.description.length>20?(e.description.substr(0,200)):(e.description)}...</CardText>
         
     </Card>
     

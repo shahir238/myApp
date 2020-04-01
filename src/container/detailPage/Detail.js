@@ -80,7 +80,7 @@ export default class Detail extends Component {
       </Jumbotron>
             <div key={i}>
 
-              <UncontrolledCarousel width="100px" items={this.state.images} />
+              <UncontrolledCarousel items={this.state.images} />
               <p style={{ textAlign: "justify", margin: "2px 10px 0px 10px" }}>
                 <h4>
                   Rate: ${e.price}
