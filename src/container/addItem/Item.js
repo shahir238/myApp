@@ -9,7 +9,12 @@ import {
   CardBody,
   Row,
   Col,
-  Progress
+  Progress,
+  Jumbotron,
+  Navbar,
+  Nav,
+  NavItem,
+  NavLink
 } from "reactstrap";
 import { db, storage } from "../../component/firebase";
 import { withRouter } from "react-router-dom";
@@ -100,12 +105,21 @@ const Item = props => {
 
     pro === 100 && props.history.push("/");
   };
-
+const home=()=>{
+  props.history.push("/")
+}
   return (
     <div className="itemmain">
-      <h1 style={{ color: "#8c0ad1" }} className="header">
-        Add New Item
-      </h1>
+    <Jumbotron style={{backgroundColor:'#1387bd'}} className="jumbotron" fluid>
+      {/* <Navbar className="myBar" light  expand="sm">
+        <Nav className="mr-auto" navbar> */}
+          {/* <NavItem> */}
+      <h2 className="head2">Event Management</h2>
+      {/* </NavItem>
+      </Nav>
+      </Navbar> */}
+     <Button className="home" color='success'  onClick={home} >Home</Button>
+      </Jumbotron>
       <br></br>
       <CardBody className="itembody">
         <Form onSubmit={submit}>
@@ -226,7 +240,7 @@ const Item = props => {
             className="myprogress"
           /></Col> */}
             <Col>
-              <Button className="itembutton">Create</Button>
+              <Button outline color="primary" className="itembutton">Create</Button>
             </Col>
           </Row>
         </Form>

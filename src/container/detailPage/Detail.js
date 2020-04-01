@@ -68,29 +68,16 @@ export default class Detail extends Component {
       <div>
         {this.state.linkItem.map((e, i) => (
           <>
-            <Jumbotron
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                backgroundColor: "#1387bd"
-              }}
-            >
-              <span>
-                <Button onClick={this.homeRoute} color="success">
-                  Home
-                </Button>
-              </span>
-              <h1
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center"
-                }}
-              >
-                {e.title}
-              </h1>
-            </Jumbotron>
+          <Jumbotron style={{backgroundColor:'#1387bd'}} className="jumbotron" fluid>
+      {/* <Navbar className="myBar" light  expand="sm">
+        <Nav className="mr-auto" navbar> */}
+          {/* <NavItem> */}
+      <h2 className="head2">{e.title}</h2>
+      {/* </NavItem>
+      </Nav>
+      </Navbar> */}
+     <Button className="home" color='success'  onClick={this.homeRoute} >Home</Button>
+      </Jumbotron>
             <div key={i}>
               <UncontrolledCarousel items={this.state.images} />
               <p style={{ textAlign: "justify", margin: "2px 10px 0px 10px" }}>

@@ -1,5 +1,5 @@
 
-import { Jumbotron, Container, Nav, Row, Col, Card, CardImg, CardTitle, CardText, Button, NavItem } from "reactstrap";
+import { Jumbotron, Container, Nav, Row, Col, Card, CardImg, CardTitle, CardText, Button, NavItem,Navbar, } from "reactstrap";
 import { Link,NavLink, Redirect, Route} from "react-router-dom";
 import "./App.css";
 import firebase,{db} from "../component/firebase";
@@ -69,15 +69,21 @@ export class App extends Component {
       (<div className="App">
       <Jumbotron style={{backgroundColor:'#1387bd'}} className="jumbotron" fluid>
       
-        <Container className="container" fluid>
-          
-          <Nav className="nav">
+        <Navbar style={{backgroundColor:'#1387bd'}} className="myBar" light  expand="sm">
+          {/* <Nav className="nav"> */}
+          <Nav style={{backgroundColor:'#1387bd'}} className="mr-auto" navbar>
+          {/* <NavbarBrand exact to="/" >Home</NavbarBrand> */}
+          <NavItem>
             <NavLink exact className="navItem1" to="/">Home</NavLink> 
+            </NavItem>
+          {/* <NavbarBrand exact to="/Item">Add item</NavbarBrand> */}
+          <NavItem>
             <NavLink style={{marginLeft:'30px'}} exact className="navItem1" to="/Item">Add item</NavLink>
-            
-            <NavItem className="navitem"><Button color='success' className="div" onClick={this.logOut} >Sign Out</Button></NavItem>
+          </NavItem>
           </Nav>
-        </Container>
+            <Button color='success' className="div" onClick={this.logOut} >Sign Out</Button>
+         
+          </Navbar>
       </Jumbotron>
       <Container>
         

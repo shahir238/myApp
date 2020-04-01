@@ -81,6 +81,7 @@ export class ImageUploader extends Component {
               ]
             : [
                 <img
+                style={{marginTop:'20px',marginLeft:'10px'}}
                   key={this.props}
                   alt="demo"
                   src="http://placehold.it/150x150"
