@@ -55,3 +55,12 @@ input:-webkit-autofill:active {
     transition: background-color 1000s ease-in-out 0s;
 
 }
+.title{
+    color: lightcoral;
+}
+.authE{
+    color: red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

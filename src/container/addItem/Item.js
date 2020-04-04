@@ -1,5 +1,7 @@
 import React, { useState, useContext } from "react";
 import { AuthContext } from "../../component/Auth";
+import load from "../../assets/images/load.gif"
+// import { Button } from 'antd';
 import {
   Button,
   Label,
@@ -23,6 +25,7 @@ import "./item.css";
 import ImageUploader from "../fileUpload/ImageUploader";
 
 const Item = props => {
+  const [loader,setLoader] = useState(false);
   const { currentUser } = useContext(AuthContext);
   console.log({ jjj: props });
   const [item, setItem] = useState({
@@ -47,6 +50,7 @@ const Item = props => {
 
   const submit = async e => {
     e.preventDefault();
+    setLoader(true);
     let Url = [];
     let pro = 0;
     for (var i = 0; i < myImages.myImages.length; i++) {
@@ -229,20 +233,25 @@ const home=()=>{
           </Row>
 
           {/* Image upload component */}
-          <ImageUploader myImg={img} />
-          <Col>
-            <Progress value={progress} max="100" className="myprogress" />
-          </Col>
+          {loader===false ? 
+         (<> <ImageUploader myImg={img} />
+          
           <Row>
-            {/* <Col><Progress
-            value={progress}
-            max="200"
-            className="myprogress"
-          /></Col> */}
+          
             <Col>
               <Button outline color="primary" className="itembutton">Create</Button>
             </Col>
           </Row>
+          </>):(<Col>
+            <Progress value={progress} max="100" className="myprogress" />
+            <Button type="primary" loading><span style={{ float: "right", marginRight: "-10px" }}>
+                      <img
+                        style={{ width: "20px", height: "20px" }}
+                        alt="loader"
+                        src={load}
+                      />
+                    </span>Creating</Button>
+          </Col>)}
         </Form>
       </CardBody>
     </div>

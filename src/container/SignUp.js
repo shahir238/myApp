@@ -78,6 +78,7 @@ const SignUp = ({ history }) => {
     state: "",
     city: ""
   });
+  const [authError,setAuthError] = useState(null);
   //  const [detect,setDetect] = useState(false)
   const formik = useFormik({
     initialValues: {
@@ -109,6 +110,7 @@ const SignUp = ({ history }) => {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
+        setAuthError(errorMessage);
         console.log("Error code", errorCode);
         console.log("Error message", errorMessage);
         // ...
@@ -139,7 +141,7 @@ const SignUp = ({ history }) => {
 
   return (
     <Card className="signupcard">
-      <CardTitle className="title">Sign Up...</CardTitle>
+      <CardTitle className="title"><h2 className="title">Sign Up...</h2></CardTitle>
 
       <Form onSubmit={formik.handleSubmit} className="signupform">
         <Row form>
@@ -296,7 +298,9 @@ const SignUp = ({ history }) => {
             Sign In
           </Button>
         </Link>
+  
       </Form>
+      <p className="authE">{authError}</p>
     </Card>
   );
 };
